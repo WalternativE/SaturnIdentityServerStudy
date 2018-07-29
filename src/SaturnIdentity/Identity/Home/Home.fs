@@ -1,0 +1,4 @@
+﻿module Home
+
+module Views =
+    ()
