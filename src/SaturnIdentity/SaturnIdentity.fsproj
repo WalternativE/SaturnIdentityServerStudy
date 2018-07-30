@@ -6,6 +6,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="IdentityConfig.fs" />
+    <Compile Include="Shared.fs" />
     <Compile Include="Identity\Home\Home.fs" />
     <Compile Include="Identity\Account\Login.fs" />
     <Compile Include="Program.fs" />

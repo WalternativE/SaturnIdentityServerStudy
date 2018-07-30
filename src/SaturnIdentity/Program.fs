@@ -1,32 +1,18 @@
-﻿open System
-open Saturn
-open Giraffe
+﻿open Saturn
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.AspNetCore.Builder
 open IdentityConfig
-open Giraffe.GiraffeViewEngine
-open Microsoft.AspNetCore.Http
 
-let layout (content : XmlNode list ) =
-    html [] [
-        head [] [
-            meta [_charset "utf-8"]
-            meta [_name "viewport"; _content "width=device-width, initial-scale=1" ]
-            title [] [encodedText "Saturn Identity"]
-            link [_rel "stylesheet"; _href "https://cdnjs.com/libraries/bulma"]
-        ]
-        body [] content
-    ]
+let browser = pipeline {
+    plug acceptHtml
+    plug putSecureBrowserHeaders
+    plug fetchSession
+    set_header "x-pipeline-type" "Browser" }
 
-let indexAction (ctx : HttpContext) = task {
-        return layout [ h1 [] [ encodedText "Hello, world!" ] ]
-    }
-
-let homeController = controller {
-    index indexAction }
-
-let mainRouter = router {
-    forward "" homeController }
+let browserRouter = router {
+    pipe_through browser
+    forward "" Home.Controller.homeController
+    forward "/account/login" Login.Controller.loginController }
 
 let configureServices (services : IServiceCollection) =
     services.AddIdentityServer()
@@ -42,7 +28,7 @@ let configureApp (app : IApplicationBuilder) =
     app
 
 let app = application {
-    use_router mainRouter
+    use_router browserRouter
 
     url "https://localhost:8085/"
 
