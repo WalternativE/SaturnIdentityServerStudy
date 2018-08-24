@@ -1,6 +1,6 @@
 source https://api.nuget.org/v3/index.json
 
-nuget FSharp.Core
+nuget FSharp.Core 4.5.2
 
-nuget Saturn
-nuget IdentityServer4
+nuget Saturn 0.7.5
+nuget IdentityServer4 2.2.0

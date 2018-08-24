@@ -33,8 +33,12 @@ module App =
                             span [] []
                         ]
                     ]
-                    div [ _class "navbar-menu"; _id "navbarMenue" ] [
-                        a [ _href "/#"] [ encodedText "Login" ]
+                    div [ _class "navbar-menu"; _id "navbarMenu" ] [
+                        div [ _class "navbar-start" ] [
+                            div [ _class "navbar-item"] [
+                                a [ _href "/account/login"] [ encodedText "Login" ]
+                            ]
+                        ]
                     ]
                 ]
                 yield! content
